@@ -1,0 +1,60 @@
+#include <algorithm>
+#include <cstdlib>
+#include <iostream>
+#include <set>
+#include <string>
+#include <vector>
+using namespace std;
+
+using Vecteur = vector<int>;
+
+bool sontEgaux(const Vecteur& v1, const Vecteur& v2);
+
+string toString(const Vecteur& v);
+void test(const Vecteur& v1, const Vecteur& v2);
+
+int main() {
+
+   const Vecteur V0,
+                 V1  = {1},
+                 V2A = {1, 2},
+                 V2B = {2, 1},
+                 V3A = {1, 2, 3},
+                 V3B = {3, 2, 1},
+                 V4  = {1, 2, 3, 4},
+                 V5  = {1, 2, 3, 2, 1};
+                     
+   test(V0, V0);
+   test(V1, V1);
+   test(V2A, V2B);
+   test(V3A, V3B);
+   test(V3A, V4);
+   test(V3A, V5);
+   
+   return EXIT_SUCCESS;
+}
+
+bool sontEgaux(const Vecteur& v1, const Vecteur& v2) {
+   return set<int>(v1.begin(), v1.end()) == set<int>(v2.begin(), v2.end());
+}
+
+string toString(const Vecteur& v) {
+   string str = "[";
+   for (auto i = v.begin(); i != v.end(); ++i) {
+      if (i != v.begin())
+         str += ", ";
+      str += to_string(*i);   
+   }
+   str += "]";
+   return str;
+}
+
+void test(const Vecteur& v1, const Vecteur& v2) {
+   cout << toString(v1) << " et " << toString(v2);
+   if (sontEgaux(v1, v2)) {
+      cout << " sont "; 
+   } else {
+      cout << " ne sont pas ";      
+   }
+   cout << "egaux" << endl;
+}
